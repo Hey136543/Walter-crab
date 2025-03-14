@@ -145,7 +145,7 @@
         const sendBtn = document.getElementById('sendBtn');
         const chatMessages = document.getElementById('chatMessages');
 
-        // Carica messaggi salvati da localStorage
+        // Carica e mostra tutti i messaggi salvati da localStorage
         let messages = JSON.parse(localStorage.getItem('chatMessages')) || [];
         messages.forEach(msg => addMessage(msg));
 
@@ -206,7 +206,7 @@
                 msgDiv.innerHTML = `<strong>${message.sender}</strong> (${message.timestamp}): <br><video controls src="${message.content}"></video>`;
             }
             chatMessages.appendChild(msgDiv);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
+            chatMessages.scrollTop = chatMessages.scrollHeight; // Scorre automaticamente in basso
         }
     </script>
 </body>
