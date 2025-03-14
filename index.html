@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accesso</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: #0066cc; 
+            font-family: Arial, sans-serif;
+            transition: background-color 0.5s ease;
+        }
+
+        .title {
+            position: absolute;
+            top: 20px;
+            font-size: 36px;
+            color: white;
+        }
+
+        .search-container {
+            position: relative;
+            width: 300px;
+        }
+
+        .search-bar {
+            width: 100%;
+            padding: 12px 20px;
+            font-size: 16px;
+            border: 2px solid #fff;
+            border-radius: 25px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .search-bar:focus {
+            border-color: #fff;
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+        }
+
+        .error {
+            color: #ff3333;
+            margin-top: 10px;
+            display: none;
+        }
+
+        .content {
+            display: none;
+            text-align: center;
+            color: #fff; /* Bianco per il testo nella schermata nera */
+        }
+
+        .copyright {
+            position: absolute;
+            bottom: 20px;
+            font-size: 14px;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="title">Benvenuti</h1>
+    <div class="search-container">
+        <input type="text" class="search-bar" placeholder="Inserisci il codice" id="codeInput">
+        <div class="error" id="errorMsg">Codice errato!</div>
+    </div>
+    <div class="content" id="mainContent">
+        <h2>News</h2>
+        <p class="copyright">Copyright di Loumi A. - @2025</p>
+    </div>
+
+    <script>
+        const codeInput = document.getElementById('codeInput');
+        const errorMsg = document.getElementById('errorMsg');
+        const mainContent = document.getElementById('mainContent');
+        const title = document.querySelector('.title');
+        const body = document.body;
+        const correctCode = "Walter è Gay";
+
+        codeInput.addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                checkCode();
+            }
+        });
+
+        function checkCode() {
+            const enteredCode = codeInput.value.trim();
+            if (enteredCode === correctCode) {
+                // Cambia lo stile per la schermata interna
+                body.style.backgroundColor = '#000'; // Nero
+                codeInput.style.display = 'none';
+                errorMsg.style.display = 'none';
+                title.textContent = 'News';
+                mainContent.style.display = 'block';
+            } else {
+                errorMsg.style.display = 'block';
+                codeInput.style.borderColor = 'red';
+                setTimeout(() => {
+                    errorMsg.style.display = 'none';
+                    codeInput.style.borderColor = '#fff';
+                }, 2000);
+            }
+        }
+    </script>
+</body>
+</html>
