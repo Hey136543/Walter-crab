@@ -173,7 +173,7 @@
             <span></span>
         </div>
         <div class="menu-options" id="menuOptions">
-            <div class="menu-option" id="aptOption">APT</div>
+            <div class="menu-option" id="aptOption">Info</div>
             <div class="menu-option" id="chatOption">Chat</div>
         </div>
         <h2>News</h2>
@@ -189,7 +189,7 @@
         const body = document.body;
         const menuBtn = document.getElementById('menuBtn');
         const menuOptions = document.getElementById('menuOptions');
-        const aptOption = document.getElementById('aptOption');
+        const aptOption = document.getElementById('infoOption');
         const chatOption = document.getElementById('chatOption');
         const submitBtn = document.getElementById('submitBtn');
         const correctCode = "Walter è Innamorato di Iman";
@@ -215,7 +215,7 @@
 
         // Gestione clic su "APT"
         aptOption.addEventListener('click', function() {
-            window.location.href = "apt-page.html";
+            window.location.href = "News/Info-page.html";
         });
 
         // Gestione clic su "Chat"
