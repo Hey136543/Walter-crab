@@ -91,10 +91,17 @@
             height: 20px;
             cursor: pointer;
             z-index: 100;
+            padding: 5px;
+            border: 2px solid transparent; /* Bordo iniziale trasparente */
+            transition: border-color 0.3s ease;
         }
 
         .menu-btn.active {
             display: block; /* Visibile dopo login */
+        }
+
+        .menu-btn.clicked {
+            border-color: red; /* Bordo rosso dopo il clic */
         }
 
         .menu-btn span {
@@ -104,6 +111,25 @@
             background-color: #fff; /* Bianco per visibilità su sfondo nero */
             margin: 4px 0;
             transition: all 0.3s ease;
+        }
+
+        .apt-message {
+            display: none;
+            position: absolute;
+            top: 60px;
+            left: 20px;
+            background-color: #fff;
+            color: #000;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 16px;
+            z-index: 100;
+            cursor: pointer;
+        }
+
+        .apt-message.active {
+            display: block;
+            content: "APT";
         }
 
         .copyright {
@@ -135,6 +161,7 @@
             <span></span>
             <span></span>
         </div>
+        <div class="apt-message" id="aptMessage"></div>
         <h2>News</h2>
         <p class="copyright">Copyright di Loumi A. - @2025</p>
     </div>
@@ -147,6 +174,7 @@
         const title = document.querySelector('.title');
         const body = document.body;
         const menuBtn = document.getElementById('menuBtn');
+        const aptMessage = document.getElementById('aptMessage');
         const submitBtn = document.getElementById('submitBtn');
         const correctCode = "Walter è Innamorato di Iman";
 
@@ -163,9 +191,18 @@
             }
         });
 
-        // Gestione clic sul menu (opzionale, per ora non fa nulla)
+        // Gestione clic sul menu
         menuBtn.addEventListener('click', function() {
-            alert('Menu cliccato!'); // Puoi aggiungere funzionalità qui
+            menuBtn.classList.add('clicked'); // Aggiunge il bordo rosso
+            aptMessage.textContent = "APT";
+            aptMessage.classList.add('active');
+        });
+
+        // Gestione clic sul messaggio "APT" per reindirizzare
+        aptMessage.addEventListener('click', function() {
+            if (aptMessage.classList.contains('active')) {
+                window.location.href = "apt-page.html"; // Reindirizza alla nuova pagina
+            }
         });
 
         function checkCode() {
