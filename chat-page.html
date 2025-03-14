@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="it">
 <head>
     <meta charset="UTF-8">
@@ -17,17 +17,18 @@
             font-family: Arial, sans-serif;
             color: #fff;
             text-align: center;
+            touch-action: manipulation;
         }
 
         .home-btn {
             position: absolute;
-            top: 20px;
-            left: 20px;
+            top: 2vh;
+            left: 2vw;
             background-color: #fff;
             color: #000;
-            padding: 10px 20px;
+            padding: 1.5vh 3vw;
             border-radius: 5px;
-            font-size: 16px;
+            font-size: clamp(12px, 3.5vw, 16px);
             cursor: pointer;
             z-index: 100;
         }
@@ -37,23 +38,23 @@
         }
 
         .title {
-            font-size: 36px;
-            margin-top: 60px;
+            font-size: clamp(24px, 6vw, 36px);
+            margin-top: 8vh;
         }
 
         .chat-container {
             flex-grow: 1;
             width: 90%;
             max-width: 600px;
-            margin: 20px 0;
-            padding: 10px;
+            margin: 2vh 0;
+            padding: 2vh 2vw;
             background-color: #1a1a1a;
             border-radius: 5px;
             overflow-y: auto;
         }
 
         .chat-message {
-            margin: 10px 0;
+            margin: 1.5vh 0;
             text-align: left;
         }
 
@@ -67,18 +68,18 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 2vh;
         }
 
         .chat-input {
             width: 100%;
-            padding: 10px;
+            padding: 2vh 3vw;
             border-radius: 5px;
             border: none;
             background-color: #333;
             color: #fff;
-            font-size: 16px;
-            margin-bottom: 10px;
+            font-size: clamp(14px, 3.5vw, 16px);
+            margin-bottom: 1vh;
         }
 
         .chat-input:focus {
@@ -87,17 +88,18 @@
         }
 
         .chat-file-input {
-            margin-bottom: 10px;
+            margin-bottom: 1vh;
+            font-size: clamp(12px, 3vw, 14px);
         }
 
         .chat-send-btn {
-            padding: 10px 20px;
+            padding: 1.5vh 3vw;
             background-color: #00ccff;
             color: #fff;
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            font-size: 16px;
+            font-size: clamp(12px, 3.5vw, 16px);
         }
 
         .chat-send-btn:hover {
@@ -106,8 +108,8 @@
 
         .copyright {
             position: absolute;
-            bottom: 20px;
-            font-size: 14px;
+            bottom: 2vh;
+            font-size: clamp(10px, 2.5vw, 14px);
             color: #fff;
             width: 100%;
             text-align: center;
@@ -115,7 +117,14 @@
 
         video {
             max-width: 100%;
-            margin: 10px 0;
+            margin: 1.5vh 0;
+        }
+
+        @media (max-width: 768px) {
+            .title { font-size: clamp(20px, 7vw, 24px); }
+            .chat-container { width: 95%; }
+            .chat-input { padding: 1.5vh 2vw; }
+            .chat-send-btn { padding: 1.5vh 2vw; }
         }
     </style>
 </head>
