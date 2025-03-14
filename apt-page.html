@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APT</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: #000;
+            font-family: Arial, sans-serif;
+            color: #fff;
+            text-align: center;
+            touch-action: manipulation;
+        }
+
+        .home-btn {
+            position: absolute;
+            top: 2vh;
+            left: 2vw;
+            background-color: #fff;
+            color: #000;
+            padding: 1.5vh 3vw;
+            border-radius: 5px;
+            font-size: clamp(12px, 3.5vw, 16px);
+            cursor: pointer;
+            z-index: 100;
+        }
+
+        .home-btn:hover {
+            background-color: #f0f0f0;
+        }
+
+        .title {
+            font-size: clamp(24px, 6vw, 36px);
+            margin-bottom: 2vh;
+        }
+
+        .description {
+            font-size: clamp(18px, 4.5vw, 24px);
+        }
+
+        .copyright {
+            position: absolute;
+            bottom: 2vh;
+            font-size: clamp(10px, 2.5vw, 14px);
+            color: #fff;
+            width: 100%;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .title { font-size: clamp(20px, 7vw, 24px); }
+            .description { font-size: clamp(16px, 5vw, 18px); }
+        }
+    </style>
+</head>
+<body>
+    <div class="home-btn" onclick="window.location.href='index.html'">Home</div>
+    <h1 class="title">APT</h1>
+    <p class="description">Ciao</p>
+    <p class="copyright">Copyright di Loumi A. - @2025</p>
+</body>
+</html>
