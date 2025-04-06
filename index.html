@@ -12,7 +12,6 @@
             overflow: hidden;
         }
 
-        /* Schermata di caricamento iniziale */
         #loading-screen {
             position: fixed;
             width: 100%;
@@ -38,7 +37,6 @@
             100% { transform: rotate(360deg); }
         }
 
-        /* Schermata codice */
         #code-screen {
             display: none;
             width: 100%;
@@ -66,7 +64,6 @@
             cursor: pointer;
         }
 
-        /* Schermata caricamento colori */
         #color-loading {
             display: none;
             width: 100%;
@@ -82,7 +79,6 @@
             100% { background: red; }
         }
 
-        /* Schermata principale */
         #main-screen, #dark-screen {
             display: none;
             width: 100%;
@@ -95,11 +91,11 @@
         }
 
         #main-screen {
-            background-image: <a href='https://postimg.cc/NyhqtCXM' target='_blank'><img src='https://i.postimg.cc/PqJtmBrm/srtu.jpg' border='0' alt='srtu'/></a>;
+            background-image: url('https://i.postimg.cc/PqJtmBrm/srtu.jpg'); /* Nuovo sfondo per Standard */
         }
 
         #dark-screen {
-            background-image: <a href='https://postimages.org/' target='_blank'><img src='https://i.postimg.cc/SsVwQGMD/Senza-titolo-4.png' border='0' alt='Senza-titolo-4'/></a>;
+            background-image: url('https://i.postimg.cc/SsVwQGMD/Senza-titolo-4.png'); /* Nuovo sfondo per Dark-W */
         }
 
         .content {
@@ -212,13 +208,11 @@
     <script>
         const correctCode = "Gay ed è Innamorato di Iman";
 
-        // Caricamento iniziale
         setTimeout(() => {
             document.getElementById('loading-screen').style.display = 'none';
             document.getElementById('code-screen').style.display = 'flex';
         }, 5000);
 
-        // Verifica codice
         document.getElementById('submit-code').addEventListener('click', () => {
             const inputCode = document.getElementById('code-input').value;
             if (inputCode === correctCode) {
@@ -234,7 +228,6 @@
             }
         });
 
-        // Menu
         document.querySelectorAll('.menu').forEach(menu => {
             menu.addEventListener('click', () => {
                 const options = menu.nextElementSibling;
