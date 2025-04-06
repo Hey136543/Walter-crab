@@ -9,7 +9,6 @@
             margin: 0;
             padding: 0;
             font-family: Arial, sans-serif;
-            overflow: hidden;
             color: #FF00CA; /* Tutto il testo rosa shocking di default */
         }
 
@@ -179,9 +178,13 @@
                 background-position: center;
             }
             .copyright {
-                bottom: 5px; /* Leggermente più alto su mobile per visibilità */
+                position: fixed; /* Fissato sullo schermo per mobile */
+                bottom: 5px; /* Distanza dal fondo su mobile */
+                left: 50%;
+                transform: translateX(-50%);
                 font-size: 12px; /* Dimensione ridotta per mobile */
                 padding: 3px 10px; /* Padding più piccolo */
+                z-index: 100; /* Ancora più alto per sicurezza */
             }
         }
     </style>
