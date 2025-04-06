@@ -3,246 +3,255 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Accesso</title>
+    <title>Walter è:</title>
     <style>
         body {
             margin: 0;
             padding: 0;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background-color: #0066cc;
             font-family: Arial, sans-serif;
-            transition: background-color 0.5s ease;
-            overflow-x: hidden;
-            touch-action: manipulation; /* Migliora la reattività al tocco */
+            overflow: hidden;
         }
 
-        .title {
-            position: absolute;
-            top: 10vh; /* Aumentato per distanziare ulteriormente dal menu */
-            font-size: clamp(20px, 4vw, 30px);
-            color: white;
-            text-align: center;
-            width: 90%;
-        }
-
-        .search-container {
-            position: relative;
-            width: 80%;
-            max-width: 300px;
+        /* Schermata di caricamento iniziale */
+        #loading-screen {
+            position: fixed;
+            width: 100%;
+            height: 100vh;
+            background: #000;
             display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #fff;
+            border-top: 5px solid #000;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Schermata codice */
+        #code-screen {
+            display: none;
+            width: 100%;
+            height: 100vh;
+            background: #fff;
             flex-direction: column;
+            justify-content: center;
             align-items: center;
         }
 
-        .search-bar {
-            width: 100%;
-            padding: 1.5vh 3vw;
-            font-size: clamp(12px, 3.5vw, 14px);
-            border: 2px solid #fff;
-            border-radius: 25px;
-            outline: none;
-            transition: all 0.3s ease;
+        #code-input {
+            padding: 10px;
+            width: 300px;
+            margin: 20px;
+            border: 2px solid #000;
+            border-radius: 5px;
         }
 
-        .search-bar:focus {
-            border-color: #fff;
-            box-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
-        }
-
-        .submit-btn {
-            margin-top: 1.5vh;
-            padding: 1.5vh 3vw;
-            background-color: #fff;
-            color: #0066cc;
+        #submit-code {
+            padding: 10px 20px;
+            background: #000;
+            color: #fff;
             border: none;
-            border-radius: 20px;
+            border-radius: 5px;
             cursor: pointer;
-            font-size: clamp(10px, 3vw, 14px);
         }
 
-        .submit-btn:hover {
-            background-color: #e6e6e6;
-        }
-
-        .error {
-            color: #ff3333;
-            margin-top: 1vh;
-            font-size: clamp(10px, 2.5vw, 14px);
+        /* Schermata caricamento colori */
+        #color-loading {
             display: none;
-            text-align: center;
+            width: 100%;
+            height: 100vh;
+            animation: colorLoop 0.5s infinite;
+        }
+
+        @keyframes colorLoop {
+            0% { background: red; }
+            25% { background: blue; }
+            50% { background: green; }
+            75% { background: yellow; }
+            100% { background: red; }
+        }
+
+        /* Schermata principale */
+        #main-screen, #dark-screen {
+            display: none;
+            width: 100%;
+            height: 100vh;
+            background-size: cover;
+            background-position: center;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        #main-screen {
+            background-image: url('https://i.ibb.co/Fq8mDdZK/Immagine-Whats-App-2025-04-04-ore-18-50-27-8ae7e1f9.jpg');
+        }
+
+        #dark-screen {
+            background-image: url('https://i.ibb.co/03Hg2WJ/Senza-titolo-4.png');
         }
 
         .content {
-            display: none;
-            width: 100%;
-            height: 100%;
-            color: #fff;
-            position: absolute;
-            top: 0;
-            left: 0;
             text-align: center;
+            color: #fff;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            margin-top: 50px;
         }
 
-        .menu-btn {
-            display: none;
+        .menu {
             position: absolute;
-            top: 4vh; /* Leggermente alzato rispetto a 6vh */
-            left: 2vw;
-            width: 5vw; /* Ulteriormente ridotto */
-            height: 2.5vh; /* Ulteriormente ridotto */
+            top: 10px;
+            right: 10px;
             cursor: pointer;
-            z-index: 100;
-            padding: 0.5vh 0.5vw;
-            border: 2px solid transparent;
-            transition: border-color 0.3s ease;
-        }
-
-        .menu-btn.active {
-            display: block;
-        }
-
-        .menu-btn.clicked {
-            border-color: red;
-        }
-
-        .menu-btn span {
-            display: block;
-            width: 100%;
-            height: 25%;
-            background-color: #fff;
-            margin: 1px 0;
-            transition: all 0.3s ease;
+            font-size: 24px;
+            color: #fff;
         }
 
         .menu-options {
             display: none;
             position: absolute;
-            top: 10vh; /* Aggiornato per seguire il nuovo posizionamento */
-            left: 2vw;
-            background-color: #fff;
-            color: #000;
+            top: 40px;
+            right: 10px;
+            background: #fff;
+            padding: 10px;
             border-radius: 5px;
-            z-index: 100;
-            padding: 1vh 0;
         }
 
-        .menu-options.active {
-            display: block;
-        }
-
-        .menu-option {
-            padding: 1.5vh 3vw;
+        .menu-options div {
+            padding: 5px;
             cursor: pointer;
-            font-size: clamp(12px, 3vw, 14px);
         }
 
-        .menu-option:hover {
-            background-color: #f0f0f0;
+        .menu-options div:hover {
+            background: #ddd;
         }
 
         .copyright {
             position: absolute;
-            bottom: 2vh;
-            font-size: clamp(8px, 2vw, 12px);
+            bottom: 10px;
             color: #fff;
-            width: 100%;
-            text-align: center;
+            padding: 5px 15px;
+            border-radius: 20px;
+            animation: glow 2s infinite;
+        }
+
+        @keyframes glow {
+            0% { box-shadow: 0 0 10px pink; }
+            50% { box-shadow: 0 0 20px pink; }
+            100% { box-shadow: 0 0 10px pink; }
+        }
+
+        .copyright span {
+            animation: colorChange 1s infinite;
+        }
+
+        @keyframes colorChange {
+            0% { color: blue; }
+            50% { color: yellow; }
+            100% { color: blue; }
         }
 
         @media (max-width: 768px) {
-            .title { font-size: clamp(16px, 5vw, 20px); top: 12vh; } /* Aumentato top per mobile */
-            .search-container { width: 90%; }
-            .menu-btn { top: 5vh; width: 6vw; height: 3vh; } /* Ridotto dimensioni per mobile */
-            .menu-options { top: 12vh; }
-            .search-bar { padding: 1vh 2vw; }
-            .submit-btn { padding: 1vh 2vw; }
+            #code-input {
+                width: 80%;
+            }
+            .content {
+                margin: 20px;
+            }
         }
     </style>
 </head>
 <body>
-    <h1 class="title">Benvenuti</h1>
-    <div class="search-container" id="loginContainer">
-        <input type="text" class="search-bar" placeholder="Se un gay è un Gay, chi è gAY?" id="codeInput">
-        <button class="submit-btn" id="submitBtn">Invia</button>
-        <div class="error" id="errorMsg">Codice errato! Indizio: Suca, ahaha suca</div>
+    <div id="loading-screen">
+        <div class="spinner"></div>
     </div>
-    <div class="content" id="mainContent">
-        <div class="menu-btn" id="menuBtn">
-            <span></span>
-            <span></span>
-            <span></span>
+
+    <div id="code-screen">
+        <h1>Walter è:</h1>
+        <input type="text" id="code-input" placeholder="Inserisci il codice">
+        <button id="submit-code">Invia</button>
+    </div>
+
+    <div id="color-loading"></div>
+
+    <div id="main-screen">
+        <div class="menu">☰</div>
+        <div class="menu-options">
+            <div onclick="showMain()">Standard</div>
+            <div onclick="showDark()">Dark-W</div>
         </div>
-        <div class="menu-options" id="menuOptions">
-            <div class="menu-option" id="aptOption">Who</div>
-            <div class="menu-option" id="chatOption">Chat</div>
+        <div class="content">
+            <h1>Benvenuti</h1>
+            <p>Il sito è stato creato per lo scopo di illustrare un ragazzo molto strano pronto ad andare in prigione, un Gay e un amante di qualsiasi cosa pure ai vecchi.</p>
         </div>
-        <h2>Benvenuti al sito web</h2>
-        <p class="copyright">Copyright di Loumi A. - @2025</p>
+        <div class="copyright">Copyright di <span>Burco</span> - 2022/2025</div>
+    </div>
+
+    <div id="dark-screen">
+        <div class="menu">☰</div>
+        <div class="menu-options">
+            <div onclick="showMain()">Standard</div>
+            <div onclick="showDark()">Dark-W</div>
+        </div>
+        <div class="copyright">Copyright di <span>Burco</span> - 2022/2025</div>
     </div>
 
     <script>
-        const codeInput = document.getElementById('codeInput');
-        const errorMsg = document.getElementById('errorMsg');
-        const mainContent = document.getElementById('mainContent');
-        const loginContainer = document.getElementById('loginContainer');
-        const title = document.querySelector('.title');
-        const body = document.body;
-        const menuBtn = document.getElementById('menuBtn');
-        const menuOptions = document.getElementById('menuOptions');
-        const aptOption = document.getElementById('aptOption');
-        const chatOption = document.getElementById('chatOption');
-        const submitBtn = document.getElementById('submitBtn');
-        const correctCode = "Walter è Follemente Innamorato di Iman";
+        const correctCode = "Gay ed è Innamorato di Iman";
 
-        // Gestione invio codice
-        submitBtn.addEventListener('click', function(event) {
-            event.preventDefault();
-            checkCode();
-        });
+        // Caricamento iniziale
+        setTimeout(() => {
+            document.getElementById('loading-screen').style.display = 'none';
+            document.getElementById('code-screen').style.display = 'flex';
+        }, 5000);
 
-        codeInput.addEventListener('keydown', function(event) {
-            if (event.key === 'Enter') {
-                event.preventDefault();
-                checkCode();
-            }
-        });
-
-        // Gestione clic sul menu
-        menuBtn.addEventListener('click', function() {
-            menuBtn.classList.toggle('clicked');
-            menuOptions.classList.toggle('active');
-        });
-
-        // Gestione clic su "APT"
-        aptOption.addEventListener('click', function() {
-            window.location.href = "apt-page.html";
-        });
-
-        // Gestione clic su "Chat"
-        chatOption.addEventListener('click', function() {
-            window.location.href = "chat-page.html";
-        });
-
-        function checkCode() {
-            const enteredCode = codeInput.value.trim();
-            if (enteredCode === correctCode) {
-                body.style.backgroundColor = '#C930FF';
-                loginContainer.style.display = 'none';
-                title.textContent = 'Se volete sapere una cosa il sito è in programma di ampliare più possibile che può. Io il sottoscritto L. ho il compito di scegliere se mantenere o eliminare il sito. Aprite o schiacciate le tre lineette per continuare.';
-                mainContent.style.display = 'block';
-                menuBtn.classList.add('active');
-            } else {
-                errorMsg.style.display = 'block';
-                codeInput.style.borderColor = 'red';
+        // Verifica codice
+        document.getElementById('submit-code').addEventListener('click', () => {
+            const inputCode = document.getElementById('code-input').value;
+            if (inputCode === correctCode) {
+                document.getElementById('code-screen').style.display = 'none';
+                document.getElementById('color-loading').style.display = 'block';
                 setTimeout(() => {
-                    errorMsg.style.display = 'none';
-                    codeInput.style.borderColor = '#fff';
-                }, 2000);
+                    document.getElementById('color-loading').style.display = 'none';
+                    document.getElementById('main-screen').style.display = 'flex';
+                }, 3000);
+            } else {
+                alert('Codice errato');
+                document.getElementById('code-input').value = '';
             }
+        });
+
+        // Menu
+        document.querySelectorAll('.menu').forEach(menu => {
+            menu.addEventListener('click', () => {
+                const options = menu.nextElementSibling;
+                options.style.display = options.style.display === 'block' ? 'none' : 'block';
+            });
+        });
+
+        function showMain() {
+            document.getElementById('main-screen').style.display = 'flex';
+            document.getElementById('dark-screen').style.display = 'none';
+            document.querySelectorAll('.menu-options').forEach(opt => opt.style.display = 'none');
+        }
+
+        function showDark() {
+            document.getElementById('main-screen').style.display = 'none';
+            document.getElementById('dark-screen').style.display = 'flex';
+            document.querySelectorAll('.menu-options').forEach(opt => opt.style.display = 'none');
         }
     </script>
 </body>
