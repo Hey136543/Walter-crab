@@ -244,9 +244,18 @@
     <script>
         const correctCode = "Gay ed è Innamorato di Iman";
 
+        // Funzione per provare a forzare l'audio su mobile
+        function tryPlayAudio() {
+            const audioFrame = document.getElementById('youtube-audio');
+            if (audioFrame) {
+                audioFrame.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+            }
+        }
+
         setTimeout(() => {
             document.getElementById('loading-screen').style.display = 'none';
             document.getElementById('code-screen').style.display = 'flex';
+            tryPlayAudio(); // Prova a far partire l'audio all'apertura della schermata codice
         }, 5000);
 
         document.getElementById('submit-code').addEventListener('click', () => {
@@ -254,6 +263,7 @@
             if (inputCode === correctCode) {
                 document.getElementById('code-screen').style.display = 'none';
                 document.getElementById('color-loading').style.display = 'block';
+                tryPlayAudio(); // Prova a far partire l'audio dopo il clic
                 setTimeout(() => {
                     document.getElementById('color-loading').style.display = 'none';
                     document.getElementById('main-screen').style.display = 'flex';
@@ -261,6 +271,7 @@
             } else {
                 alert('Codice errato');
                 document.getElementById('code-input').value = '';
+                tryPlayAudio(); // Prova a far partire l'audio anche in caso di errore
             }
         });
 
@@ -268,6 +279,7 @@
             menu.addEventListener('click', () => {
                 const options = menu.nextElementSibling;
                 options.style.display = options.style.display === 'block' ? 'none' : 'block';
+                tryPlayAudio(); // Prova a far partire l'audio al clic sul menu
             });
         });
 
