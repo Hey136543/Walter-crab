@@ -9,7 +9,7 @@
             margin: 0;
             padding: 0;
             font-family: Arial, sans-serif;
-            color: #FF00CA; 
+            color: #FF00CA; /* Tutto il testo rosa shocking di default */
         }
 
         #loading-screen {
@@ -54,7 +54,7 @@
             margin: 20px;
             border: 2px solid #000;
             border-radius: 5px;
-            color: #000; 
+            color: #000; /* Testo nero per visibilità su sfondo bianco */
         }
 
         #submit-code {
@@ -114,7 +114,7 @@
             right: 10px;
             cursor: pointer;
             font-size: 24px;
-            animation: colorChange 1s infinite; 
+            animation: colorChange 1s infinite; /* Solo il menu mantiene l'animazione */
         }
 
         .menu-options {
@@ -125,7 +125,7 @@
             background: #fff;
             padding: 10px;
             border-radius: 5px;
-            color: #000; 
+            color: #000; /* Testo nero per visibilità su sfondo bianco */
         }
 
         .menu-options div {
@@ -139,27 +139,27 @@
 
         .copyright {
             position: absolute;
-            bottom: 2px; 
-            left: 50%; 
-            transform: translateX(-50%); 
+            bottom: 2px; /* Posizione base per desktop */
+            left: 50%; /* Centrato orizzontalmente */
+            transform: translateX(-50%); /* Centratura precisa */
             color: #FF00CA;
             padding: 5px 15px;
             border-radius: 20px;
-            animation: glow 2s infinite; 
-            z-index: 10; 
+            animation: glow 2s infinite; /* Illuminazione rosa solo per copyright */
+            z-index: 10; /* Sopra altri elementi */
         }
 
         .copyright span {
-            animation: colorChange 1s infinite; 
+            animation: colorChange 1s infinite; /* Animazione colore solo per "Burco" */
         }
 
-        
+        /* Stile per nascondere il video YouTube */
         #youtube-audio {
             position: fixed;
             width: 0;
             height: 0;
             border: 0;
-            z-index: -1; 
+            z-index: -1; /* Nascosto dietro tutto */
         }
 
         @keyframes glow {
@@ -187,21 +187,21 @@
                 background-position: center;
             }
             .copyright {
-                position: fixed; 
-                bottom: 5px; 
+                position: fixed; /* Fissato sullo schermo per mobile */
+                bottom: 5px; /* Distanza dal fondo su mobile */
                 left: 50%;
                 transform: translateX(-50%);
-                font-size: 12px; 
-                padding: 3px 10px; 
-                z-index: 100; 
+                font-size: 12px; /* Dimensione ridotta per mobile */
+                padding: 3px 10px; /* Padding più piccolo */
+                z-index: 100; /* Ancora più alto per sicurezza */
             }
         }
     </style>
 </head>
 <body>
-    <!-- video YouTube nascosto-l'audio in loop -->
+    <!-- Aggiunta del video YouTube nascosto per l'audio in loop -->
     <iframe id="youtube-audio" 
-            src="https://www.youtube.com/embed/PsO6ZnUZI0g?autoplay=1&loop=1&playlist=PsO6ZnUZI0g&controls=0&showinfo=0&mute=0" 
+            src="https://www.youtube.com/embed/PsO6ZnUZI0g?enablejsapi=1&autoplay=1&loop=1&playlist=PsO6ZnUZI0g&controls=0&showinfo=0&mute=0" 
             frameborder="0" 
             allow="autoplay; encrypted-media" 
             allowfullscreen></iframe>
@@ -242,20 +242,33 @@
     </div>
 
     <script>
-        const correctCode = "Gay ed è Innamorato di Iman";
+        // Carica l'API di YouTube
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-        //funzione utilizza ciao ragazzi se state leggendo questo per mobile
-        function tryPlayAudio() {
-            const audioFrame = document.getElementById('youtube-audio');
-            if (audioFrame) {
-                audioFrame.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
-            }
+        var player;
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('youtube-audio', {
+                events: {
+                    'onReady': onPlayerReady
+                }
+            });
         }
+
+        function onPlayerReady(event) {
+            event.target.playVideo(); // Avvia il video quando è pronto
+        }
+
+        const correctCode = "Gay ed è Innamorato di Iman";
 
         setTimeout(() => {
             document.getElementById('loading-screen').style.display = 'none';
             document.getElementById('code-screen').style.display = 'flex';
-            tryPlayAudio(); 
+            if (player && player.playVideo) {
+                player.playVideo(); // Tenta di avviare l'audio
+            }
         }, 5000);
 
         document.getElementById('submit-code').addEventListener('click', () => {
@@ -263,7 +276,9 @@
             if (inputCode === correctCode) {
                 document.getElementById('code-screen').style.display = 'none';
                 document.getElementById('color-loading').style.display = 'block';
-                tryPlayAudio(); 
+                if (player && player.playVideo) {
+                    player.playVideo(); // Tenta di avviare l'audio su mobile
+                }
                 setTimeout(() => {
                     document.getElementById('color-loading').style.display = 'none';
                     document.getElementById('main-screen').style.display = 'flex';
@@ -271,7 +286,9 @@
             } else {
                 alert('Codice errato');
                 document.getElementById('code-input').value = '';
-                tryPlayAudio(); 
+                if (player && player.playVideo) {
+                    player.playVideo(); // Tenta di avviare l'audio su mobile
+                }
             }
         });
 
@@ -279,7 +296,9 @@
             menu.addEventListener('click', () => {
                 const options = menu.nextElementSibling;
                 options.style.display = options.style.display === 'block' ? 'none' : 'block';
-                tryPlayAudio(); 
+                if (player && player.playVideo) {
+                    player.playVideo(); // Tenta di avviare l'audio su mobile
+                }
             });
         });
 
