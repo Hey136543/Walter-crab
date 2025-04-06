@@ -10,6 +10,7 @@
             padding: 0;
             font-family: Arial, sans-serif;
             overflow: hidden;
+            color: #FF00CA; /* Tutto il testo bianco di default */
         }
 
         #loading-screen {
@@ -45,6 +46,7 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            position: relative;
         }
 
         #code-input {
@@ -53,12 +55,12 @@
             margin: 20px;
             border: 2px solid #000;
             border-radius: 5px;
+            color: #000; /* Testo nero per visibilità su sfondo bianco */
         }
 
         #submit-code {
             padding: 10px 20px;
             background: #000;
-            color: #fff;
             border: none;
             border-radius: 5px;
             cursor: pointer;
@@ -68,7 +70,7 @@
             display: none;
             width: 100%;
             height: 100vh;
-            animation: colorLoop 0.5s infinite;
+            animation: colorLoop 1s infinite;
         }
 
         @keyframes colorLoop {
@@ -83,7 +85,8 @@
             display: none;
             width: 100%;
             height: 100vh;
-            background-size: cover;
+            background-size: contain;
+            background-repeat: no-repeat;
             background-position: center;
             flex-direction: column;
             align-items: center;
@@ -91,16 +94,15 @@
         }
 
         #main-screen {
-            background-image: url('https://i.postimg.cc/PqJtmBrm/srtu.jpg'); /* Nuovo sfondo per Standard */
+            background-image: url('https://i.postimg.cc/PqJtmBrm/srtu.jpg');
         }
 
         #dark-screen {
-            background-image: url('https://i.postimg.cc/SsVwQGMD/Senza-titolo-4.png'); /* Nuovo sfondo per Dark-W */
+            background-image: url('https://i.postimg.cc/SsVwQGMD/Senza-titolo-4.png');
         }
 
         .content {
             text-align: center;
-            color: #fff;
             padding: 20px;
             background: rgba(0, 0, 0, 0.7);
             border-radius: 10px;
@@ -113,7 +115,7 @@
             right: 10px;
             cursor: pointer;
             font-size: 24px;
-            color: #fff;
+            animation: colorChange 1s infinite; /* Solo il menu mantiene l'animazione */
         }
 
         .menu-options {
@@ -124,6 +126,7 @@
             background: #fff;
             padding: 10px;
             border-radius: 5px;
+            color: #000; /* Testo nero per visibilità su sfondo bianco */
         }
 
         .menu-options div {
@@ -137,21 +140,21 @@
 
         .copyright {
             position: absolute;
-            bottom: 10px;
-            color: #fff;
+            bottom: 2px; /* Molto vicino al fondo */
+            color: #FF00CA;
             padding: 5px 15px;
             border-radius: 20px;
-            animation: glow 2s infinite;
+            animation: glow 2s infinite; /* Illuminazione rosa solo per copyright */
+        }
+
+        .copyright span {
+            animation: colorChange 1s infinite; /* Animazione colore solo per "Burco" */
         }
 
         @keyframes glow {
             0% { box-shadow: 0 0 10px pink; }
             50% { box-shadow: 0 0 20px pink; }
             100% { box-shadow: 0 0 10px pink; }
-        }
-
-        .copyright span {
-            animation: colorChange 1s infinite;
         }
 
         @keyframes colorChange {
@@ -167,6 +170,11 @@
             .content {
                 margin: 20px;
             }
+            #main-screen, #dark-screen {
+                background-size: contain;
+                background-repeat: no-repeat;
+                background-position: center;
+            }
         }
     </style>
 </head>
@@ -179,6 +187,7 @@
         <h1>Walter è:</h1>
         <input type="text" id="code-input" placeholder="Inserisci il codice">
         <button id="submit-code">Invia</button>
+        <div class="copyright">Copyright di <span>Burco</span> - 2022/2025</div>
     </div>
 
     <div id="color-loading"></div>
