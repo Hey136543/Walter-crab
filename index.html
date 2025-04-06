@@ -153,6 +153,15 @@
             animation: colorChange 1s infinite; /* Animazione colore solo per "Burco" */
         }
 
+        /* Stile per nascondere il video YouTube */
+        #youtube-audio {
+            position: fixed;
+            width: 0;
+            height: 0;
+            border: 0;
+            z-index: -1; /* Nascosto dietro tutto */
+        }
+
         @keyframes glow {
             0% { box-shadow: 0 0 10px pink; }
             50% { box-shadow: 0 0 20px pink; }
@@ -190,6 +199,13 @@
     </style>
 </head>
 <body>
+    <!-- Aggiunta del video YouTube nascosto per l'audio in loop -->
+    <iframe id="youtube-audio" 
+            src="https://www.youtube.com/embed/PsO6ZnUZI0g?autoplay=1&loop=1&playlist=PsO6ZnUZI0g&controls=0&showinfo=0&mute=0" 
+            frameborder="0" 
+            allow="autoplay; encrypted-media" 
+            allowfullscreen></iframe>
+
     <div id="loading-screen">
         <div class="spinner"></div>
     </div>
