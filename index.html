@@ -10,7 +10,7 @@
             padding: 0;
             font-family: Arial, sans-serif;
             overflow: hidden;
-            color: #FF00CA; /* Tutto il testo bianco di default */
+            color: #FF00CA; /* Tutto il testo rosa shocking di default */
         }
 
         #loading-screen {
@@ -140,11 +140,14 @@
 
         .copyright {
             position: absolute;
-            bottom: 2px; /* Molto vicino al fondo */
+            bottom: 2px; /* Posizione base per desktop */
+            left: 50%; /* Centrato orizzontalmente */
+            transform: translateX(-50%); /* Centratura precisa */
             color: #FF00CA;
             padding: 5px 15px;
             border-radius: 20px;
             animation: glow 2s infinite; /* Illuminazione rosa solo per copyright */
+            z-index: 10; /* Sopra altri elementi */
         }
 
         .copyright span {
@@ -174,6 +177,11 @@
                 background-size: contain;
                 background-repeat: no-repeat;
                 background-position: center;
+            }
+            .copyright {
+                bottom: 5px; /* Leggermente più alto su mobile per visibilità */
+                font-size: 12px; /* Dimensione ridotta per mobile */
+                padding: 3px 10px; /* Padding più piccolo */
             }
         }
     </style>
