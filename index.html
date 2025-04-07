@@ -21,7 +21,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            flex-direction: column; /* Per allineare i testi sotto la rotellina */
+            flex-direction: column;
             z-index: 1000;
         }
 
@@ -32,7 +32,7 @@
             border-top: 5px solid #00FFFF;
             border-radius: 50%;
             animation: spin 1s linear infinite;
-            margin-bottom: 20px; /* Spazio tra rotellina e testi */
+            margin-bottom: 20px;
         }
 
         @keyframes spin {
@@ -44,7 +44,7 @@
             color: red;
             font-size: 18px;
             text-align: center;
-            display: none; /* Nascosto di default, mostrato via JS */
+            display: none;
         }
 
         #code-screen {
@@ -141,7 +141,7 @@
             100% { background: red; }
         }
 
-        #main-screen, #dark-screen {
+        #main-screen, #dark-screen, #news-screen {
             display: none;
             width: 100%;
             height: 100vh;
@@ -149,7 +149,7 @@
             flex-direction: column;
             align-items: center;
             position: relative;
-            overflow: hidden;
+            overflow: auto;
         }
 
         #main-screen {
@@ -166,12 +166,17 @@
             background-position: center;
         }
 
+        #news-screen {
+            padding-bottom: 50px;
+        }
+
         .content {
             text-align: center;
             padding: 20px;
             background: rgba(0, 0, 0, 0.7);
             border-radius: 10px;
             margin-top: 50px;
+            position: relative;
         }
 
         .menu {
@@ -181,17 +186,18 @@
             cursor: pointer;
             font-size: 24px;
             animation: colorChange 1s infinite;
+            z-index: 20; /* Sopra gli altri elementi */
         }
 
         .menu-options {
-            display: none;
-            position: absolute;
+            position: fixed; /* Sempre visibile in alto */
             top: 40px;
             right: 10px;
-            background: #fff;
+            background: #FF00CA;
             padding: 10px;
             border-radius: 5px;
-            color: #000;
+            color: #90EE90;
+            z-index: 20; /* Sopra gli altri elementi */
         }
 
         .menu-options div {
@@ -204,8 +210,8 @@
         }
 
         .copyright {
-            position: absolute;
-            bottom: 2px;
+            position: fixed; /* Sempre visibile in basso */
+            bottom: 5px; /* Quasi attaccato al fondo */
             left: 50%;
             transform: translateX(-50%);
             color: #FF00CA;
@@ -225,6 +231,47 @@
             height: 0;
             border: 0;
             z-index: -1;
+        }
+
+        .led {
+            width: 20px;
+            height: 20px;
+            background: red;
+            border-radius: 50%;
+            display: inline-block;
+            margin-left: 10px;
+            animation: blink 2.5s infinite;
+        }
+
+        @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        #news-screen h1 {
+            color: #FF00CA;
+            margin-top: 20px;
+        }
+
+        #news-screen .content p {
+            margin: 20px 0;
+        }
+
+        .ad-section {
+            text-align: center;
+            margin-top: 50px;
+            padding-bottom: 20px;
+        }
+
+        .ad-section h2 {
+            color: blue;
+            margin-bottom: 20px;
+        }
+
+        .ad-section img {
+            max-width: 100%;
+            height: auto;
         }
 
         @keyframes glow {
@@ -253,26 +300,30 @@
             .content {
                 margin: 20px;
             }
-            #main-screen, #dark-screen {
+            #main-screen, #dark-screen, #news-screen {
                 background-size: contain;
                 background-repeat: no-repeat;
                 background-position: center;
             }
             .copyright {
-                position: fixed;
                 bottom: 5px;
-                left: 50%;
-                transform: translateX(-50%);
                 font-size: 12px;
                 padding: 3px 10px;
-                z-index: 100;
             }
             .floating-shape {
                 transform: scale(0.7);
             }
             .loading-text {
-                font-size: 14px; /* Testo più piccolo su mobile */
-                padding: 0 10px; /* Margine per evitare tagli */
+                font-size: 14px;
+                padding: 0 10px;
+            }
+            .menu-options {
+                font-size: 14px;
+                top: 35px; /* Leggermente più in alto su mobile */
+            }
+            .led {
+                width: 15px;
+                height: 15px;
             }
         }
     </style>
@@ -309,6 +360,7 @@
         <div class="menu-options">
             <div onclick="showMain()">Standard</div>
             <div onclick="showDark()">Dark-W</div>
+            <div onclick="showNews()">News</div>
         </div>
         <div class="content">
             <h1>Benvenuti</h1>
@@ -326,6 +378,31 @@
         <div class="menu-options">
             <div onclick="showMain()">Standard</div>
             <div onclick="showDark()">Dark-W</div>
+            <div onclick="showNews()">News</div>
+        </div>
+        <div class="floating-shape shape1"></div>
+        <div class="floating-shape shape2"></div>
+        <div class="floating-shape shape3"></div>
+        <div class="floating-shape shape4"></div>
+        <div class="copyright">Copyright di <span>Burco</span> - 2022/25</div>
+    </div>
+
+    <div id="news-screen">
+        <div class="menu">☰</div>
+        <div class="menu-options">
+            <div onclick="showMain()">Standard</div>
+            <div onclick="showDark()">Dark-W</div>
+            <div onclick="showNews()">News</div>
+        </div>
+        <h1>News Attuali</h1>
+        <div class="content">
+            <p>Benvenuti al News Ufficiale di Burco con la collaborazione del talentuoso ragazzo maggiorenne! A favore per celebrare il sito in basso ci sarà scritto o aggiunto un bonus e per chi vuole può scattarla/o.<span class="led"></span></p>
+        </div>
+        <div class="ad-section">
+            <h2>Pubblicità</h2>
+            <a href="https://postimages.org/" target="_blank">
+                <img src="https://i.postimg.cc/5NtYZb4r/Senza-titolo-5.png" border="0" alt="Senza-titolo-5"/>
+            </a><span class="led"></span>
         </div>
         <div class="floating-shape shape1"></div>
         <div class="floating-shape shape2"></div>
@@ -355,27 +432,19 @@
 
         const correctCode = "*";
 
-        // Gestione dei testi di caricamento
         const welcomeText = document.getElementById('welcome-text');
         const maintenanceText = document.getElementById('maintenance-text');
         const thanksText = document.getElementById('thanks-text');
 
-        // Mostra "Benvenuti" subito
         welcomeText.style.display = 'block';
-
-        // Dopo 2 secondi, mostra il messaggio di manutenzione
         setTimeout(() => {
             welcomeText.style.display = 'none';
             maintenanceText.style.display = 'block';
         }, 2000);
-
-        // Dopo altri 4.7 secondi (totale 6.7 secondi), mostra "Grazie per l'attesa"
         setTimeout(() => {
             maintenanceText.style.display = 'none';
             thanksText.style.display = 'block';
         }, 6700);
-
-        // Passa alla schermata del codice dopo 8 secondi
         setTimeout(() => {
             document.getElementById('loading-screen').style.display = 'none';
             document.getElementById('code-screen').style.display = 'flex';
@@ -392,6 +461,8 @@
                 setTimeout(() => {
                     document.getElementById('color-loading').style.display = 'none';
                     document.getElementById('main-screen').style.display = 'flex';
+                    // Mostra il menu subito dopo il caricamento
+                    document.querySelectorAll('.menu-options').forEach(opt => opt.style.display = 'block');
                 }, 3000);
             } else {
                 window.location.href = "https://it.pornhub.com/view_video.php?viewkey=653e70ebd1121";
@@ -408,13 +479,22 @@
         function showMain() {
             document.getElementById('main-screen').style.display = 'flex';
             document.getElementById('dark-screen').style.display = 'none';
-            document.querySelectorAll('.menu-options').forEach(opt => opt.style.display = 'none');
+            document.getElementById('news-screen').style.display = 'none';
+            document.querySelectorAll('.menu-options').forEach(opt => opt.style.display = 'block');
         }
 
         function showDark() {
             document.getElementById('main-screen').style.display = 'none';
             document.getElementById('dark-screen').style.display = 'flex';
-            document.querySelectorAll('.menu-options').forEach(opt => opt.style.display = 'none');
+            document.getElementById('news-screen').style.display = 'none';
+            document.querySelectorAll('.menu-options').forEach(opt => opt.style.display = 'block');
+        }
+
+        function showNews() {
+            document.getElementById('main-screen').style.display = 'none';
+            document.getElementById('dark-screen').style.display = 'none';
+            document.getElementById('news-screen').style.display = 'flex';
+            document.querySelectorAll('.menu-options').forEach(opt => opt.style.display = 'block');
         }
     </script>
 </body>
