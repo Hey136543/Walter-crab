@@ -21,6 +21,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            flex-direction: column; /* Per allineare i testi sotto la rotellina */
             z-index: 1000;
         }
 
@@ -31,11 +32,19 @@
             border-top: 5px solid #00FFFF;
             border-radius: 50%;
             animation: spin 1s linear infinite;
+            margin-bottom: 20px; /* Spazio tra rotellina e testi */
         }
 
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            color: red;
+            font-size: 18px;
+            text-align: center;
+            display: none; /* Nascosto di default, mostrato via JS */
         }
 
         #code-screen {
@@ -61,7 +70,7 @@
         .floating-shape {
             position: absolute;
             border-radius: 50%;
-            background: rgba(255, 255, 0, 0.3); /* Palline gialle trasparenti */
+            background: rgba(255, 255, 0, 0.3);
             animation: float 15s infinite linear;
         }
 
@@ -136,7 +145,7 @@
             display: none;
             width: 100%;
             height: 100vh;
-            background: #000; /* Sfondo nero di base */
+            background: #000;
             flex-direction: column;
             align-items: center;
             position: relative;
@@ -261,6 +270,10 @@
             .floating-shape {
                 transform: scale(0.7);
             }
+            .loading-text {
+                font-size: 14px; /* Testo più piccolo su mobile */
+                padding: 0 10px; /* Margine per evitare tagli */
+            }
         }
     </style>
 </head>
@@ -273,6 +286,9 @@
 
     <div id="loading-screen">
         <div class="spinner"></div>
+        <div id="welcome-text" class="loading-text">Benvenuti</div>
+        <div id="maintenance-text" class="loading-text">Se ci mette molto il sito è in manutenzione e se trovate un crash avvisate Burco</div>
+        <div id="thanks-text" class="loading-text">Grazie per l'attesa</div>
     </div>
 
     <div id="code-screen">
@@ -339,10 +355,31 @@
 
         const correctCode = "*";
 
+        // Gestione dei testi di caricamento
+        const welcomeText = document.getElementById('welcome-text');
+        const maintenanceText = document.getElementById('maintenance-text');
+        const thanksText = document.getElementById('thanks-text');
+
+        // Mostra "Benvenuti" subito
+        welcomeText.style.display = 'block';
+
+        // Dopo 2 secondi, mostra il messaggio di manutenzione
+        setTimeout(() => {
+            welcomeText.style.display = 'none';
+            maintenanceText.style.display = 'block';
+        }, 2000);
+
+        // Dopo altri 4.7 secondi (totale 6.7 secondi), mostra "Grazie per l'attesa"
+        setTimeout(() => {
+            maintenanceText.style.display = 'none';
+            thanksText.style.display = 'block';
+        }, 6700);
+
+        // Passa alla schermata del codice dopo 8 secondi
         setTimeout(() => {
             document.getElementById('loading-screen').style.display = 'none';
             document.getElementById('code-screen').style.display = 'flex';
-        }, 5000);
+        }, 8000);
 
         document.getElementById('submit-code').addEventListener('click', () => {
             const inputCode = document.getElementById('code-input').value;
@@ -350,7 +387,7 @@
                 document.getElementById('code-screen').style.display = 'none';
                 document.getElementById('color-loading').style.display = 'block';
                 if (player && player.playVideo) {
-                    player.playVideo(); // Avvia l'audio solo con codice corretto
+                    player.playVideo();
                 }
                 setTimeout(() => {
                     document.getElementById('color-loading').style.display = 'none';
