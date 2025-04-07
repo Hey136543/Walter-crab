@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chi è sto Walter</title>
+    <title>Wlater ama:</title>
     <style>
         body {
             margin: 0;
@@ -90,7 +90,7 @@
             width: 400px;
             margin: 20px;
             border: 2px solid #00FFFF;
-            border-radius: 5px;
+            border-radius: 50px;
             color: #00FFFF;
             background: #000;
             font-size: 18px;
@@ -115,7 +115,7 @@
             padding: 10px 20px;
             background: #000;
             border: 2px solid #00FFFF;
-            border-radius: 5px;
+            border-radius: 50px;
             color: #00FFFF;
             cursor: pointer;
             font-size: 16px;
@@ -175,29 +175,47 @@
             padding: 20px;
             background: rgba(0, 0, 0, 0.7);
             border-radius: 10px;
-            margin-top: 50px;
+            margin-top: 80px;
             position: relative;
+        }
+
+        .header-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 50px;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 20;
+        }
+
+        .header-bar .category-title {
+            color: #FF00CA;
+            font-size: 20px;
+            font-weight: bold;
         }
 
         .menu {
             position: absolute;
-            top: 10px;
             right: 10px;
             cursor: pointer;
-            font-size: 24px;
+            font-size: 30px;
             animation: colorChange 1s infinite;
-            z-index: 20; /* Sopra gli altri elementi */
         }
 
         .menu-options {
-            position: fixed; /* Sempre visibile in alto */
-            top: 40px;
+            display: none;
+            position: fixed;
+            top: 50px;
             right: 10px;
             background: #FF00CA;
             padding: 10px;
             border-radius: 5px;
             color: #90EE90;
-            z-index: 20; /* Sopra gli altri elementi */
+            z-index: 20;
         }
 
         .menu-options div {
@@ -210,8 +228,8 @@
         }
 
         .copyright {
-            position: fixed; /* Sempre visibile in basso */
-            bottom: 5px; /* Quasi attaccato al fondo */
+            position: fixed;
+            bottom: 5px;
             left: 50%;
             transform: translateX(-50%);
             color: #FF00CA;
@@ -272,6 +290,7 @@
         .ad-section img {
             max-width: 100%;
             height: auto;
+            cursor: pointer;
         }
 
         @keyframes glow {
@@ -292,13 +311,15 @@
             #code-input {
                 width: 80%;
                 font-size: 16px;
+                border-radius: 40px;
             }
             #submit-code {
                 font-size: 14px;
                 padding: 8px 16px;
+                border-radius: 40px;
             }
             .content {
-                margin: 20px;
+                margin-top: 60px;
             }
             #main-screen, #dark-screen, #news-screen {
                 background-size: contain;
@@ -317,9 +338,18 @@
                 font-size: 14px;
                 padding: 0 10px;
             }
+            .header-bar {
+                height: 40px;
+            }
+            .header-bar .category-title {
+                font-size: 16px;
+            }
+            .menu {
+                font-size: 24px;
+            }
             .menu-options {
+                top: 40px;
                 font-size: 14px;
-                top: 35px; /* Leggermente più in alto su mobile */
             }
             .led {
                 width: 15px;
@@ -356,7 +386,10 @@
     <div id="color-loading"></div>
 
     <div id="main-screen">
-        <div class="menu">☰</div>
+        <div class="header-bar">
+            <span class="category-title">Standard</span>
+            <div class="menu">☰</div>
+        </div>
         <div class="menu-options">
             <div onclick="showMain()">Standard</div>
             <div onclick="showDark()">Dark-W</div>
@@ -374,7 +407,10 @@
     </div>
 
     <div id="dark-screen">
-        <div class="menu">☰</div>
+        <div class="header-bar">
+            <span class="category-title">Dark-W</span>
+            <div class="menu">☰</div>
+        </div>
         <div class="menu-options">
             <div onclick="showMain()">Standard</div>
             <div onclick="showDark()">Dark-W</div>
@@ -388,7 +424,10 @@
     </div>
 
     <div id="news-screen">
-        <div class="menu">☰</div>
+        <div class="header-bar">
+            <span class="category-title">News</span>
+            <div class="menu">☰</div>
+        </div>
         <div class="menu-options">
             <div onclick="showMain()">Standard</div>
             <div onclick="showDark()">Dark-W</div>
@@ -400,9 +439,8 @@
         </div>
         <div class="ad-section">
             <h2>Pubblicità</h2>
-            <a href="https://postimages.org/" target="_blank">
-                <img src="https://i.postimg.cc/5NtYZb4r/Senza-titolo-5.png" border="0" alt="Senza-titolo-5"/>
-            </a><span class="led"></span>
+            <img src="https://i.postimg.cc/5NtYZb4r/Senza-titolo-5.png" border="0" alt="Senza-titolo-5" onclick="window.open('https://youtu.be/PsO6ZnUZI0g?si=aToq9B3tVmpFbMZ0', '_blank')">
+            <span class="led"></span>
         </div>
         <div class="floating-shape shape1"></div>
         <div class="floating-shape shape2"></div>
@@ -430,7 +468,7 @@
             // Audio non parte finché non si inserisce il codice corretto
         }
 
-        const correctCode = "*";
+        const correctCode = "Rebecca";
 
         const welcomeText = document.getElementById('welcome-text');
         const maintenanceText = document.getElementById('maintenance-text');
@@ -461,41 +499,58 @@
                 setTimeout(() => {
                     document.getElementById('color-loading').style.display = 'none';
                     document.getElementById('main-screen').style.display = 'flex';
-                    // Mostra il menu subito dopo il caricamento
-                    document.querySelectorAll('.menu-options').forEach(opt => opt.style.display = 'block');
+                    setupMenuEvents(); // Configura gli eventi del menu
                 }, 3000);
             } else {
                 window.location.href = "https://it.pornhub.com/view_video.php?viewkey=653e70ebd1121";
             }
         });
 
-        document.querySelectorAll('.menu').forEach(menu => {
-            menu.addEventListener('click', () => {
-                const options = menu.nextElementSibling;
-                options.style.display = options.style.display === 'block' ? 'none' : 'block';
+        // Funzione per configurare gli eventi del menu
+        function setupMenuEvents() {
+            document.querySelectorAll('.menu').forEach(menu => {
+                // Rimuove eventuali listener precedenti per evitare duplicati
+                menu.removeEventListener('click', toggleMenu);
+                menu.addEventListener('click', toggleMenu);
             });
-        });
+        }
 
+        // Funzione per aprire/chiudere il menu
+        function toggleMenu(event) {
+            const menu = event.currentTarget;
+            const options = menu.closest('.header-bar').nextElementSibling; // Trova il menu-options
+            if (options) {
+                options.style.display = options.style.display === 'block' ? 'none' : 'block';
+            }
+        }
+
+        // Funzioni per cambiare schermata
         function showMain() {
             document.getElementById('main-screen').style.display = 'flex';
             document.getElementById('dark-screen').style.display = 'none';
             document.getElementById('news-screen').style.display = 'none';
-            document.querySelectorAll('.menu-options').forEach(opt => opt.style.display = 'block');
+            document.querySelectorAll('.menu-options').forEach(opt => opt.style.display = 'none');
+            setupMenuEvents(); // Riconfigura gli eventi del menu
         }
 
         function showDark() {
             document.getElementById('main-screen').style.display = 'none';
             document.getElementById('dark-screen').style.display = 'flex';
             document.getElementById('news-screen').style.display = 'none';
-            document.querySelectorAll('.menu-options').forEach(opt => opt.style.display = 'block');
+            document.querySelectorAll('.menu-options').forEach(opt => opt.style.display = 'none');
+            setupMenuEvents(); // Riconfigura gli eventi del menu
         }
 
         function showNews() {
             document.getElementById('main-screen').style.display = 'none';
             document.getElementById('dark-screen').style.display = 'none';
             document.getElementById('news-screen').style.display = 'flex';
-            document.querySelectorAll('.menu-options').forEach(opt => opt.style.display = 'block');
+            document.querySelectorAll('.menu-options').forEach(opt => opt.style.display = 'none');
+            setupMenuEvents(); // Riconfigura gli eventi del menu
         }
+
+        // Configura gli eventi del menu all'avvio
+        document.addEventListener('DOMContentLoaded', setupMenuEvents);
     </script>
 </body>
 </html>
