@@ -13,12 +13,31 @@
             overflow: hidden;
         }
 
+        #intro-screen {
+            position: fixed;
+            width: 100%;
+            height: 100vh;
+            background: linear-gradient(45deg, #000033, #000066, #000099, #0000CC);
+            background-size: 400% 400%;
+            animation: psBackground 10s ease infinite;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+
+        #intro-text {
+            font-size: 48px;
+            color: #00FFFF;
+            text-shadow: 0 0 10px #FF00CA;
+        }
+
         #loading-screen {
             position: fixed;
             width: 100%;
             height: 100vh;
             background: #000;
-            display: flex;
+            display: none; /* Nascondi inizialmente */
             justify-content: center;
             align-items: center;
             flex-direction: column;
@@ -355,15 +374,26 @@
                 width: 15px;
                 height: 15px;
             }
+            #intro-text {
+                font-size: 32px;
+            }
         }
     </style>
 </head>
 <body>
     <iframe id="youtube-audio" 
-            src="https://youtu.be/ca48oMV59LU?si=OU7OYEQuWgJDwqUz&autoplay=0&loop=1&playlist=ca48oMV59LU&controls=0&showinfo=0&mute=0" 
+            src="<NUOVO_LINK_YOUTUBE>?autoplay=0&loop=1&controls=0&showinfo=0&mute=0" 
             frameborder="0" 
             allow="autoplay; encrypted-media" 
             allowfullscreen></iframe>
+
+    <div id="intro-screen">
+        <div id="intro-text">CIAO</div>
+        <div class="floating-shape shape1"></div>
+        <div class="floating-shape shape2"></div>
+        <div class="floating-shape shape3"></div>
+        <div class="floating-shape shape4"></div>
+    </div>
 
     <div id="loading-screen">
         <div class="spinner"></div>
@@ -375,7 +405,7 @@
     <div id="code-screen">
         <h1>Walter è:</h1>
         <input type="text" id="code-input" placeholder="Se scrivi sei Gay o Lesbica-Burco corp.">
-        <button id="submit-code">..DAI..</button>
+        <button id="submit-code">INIZIA</button>
         <div class="floating-shape shape1"></div>
         <div class="floating-shape shape2"></div>
         <div class="floating-shape shape3"></div>
@@ -470,23 +500,32 @@
 
         const correctCode = "Gay ed Iman e Melissa, ma di più Iman";
 
-        const welcomeText = document.getElementById('welcome-text');
-        const maintenanceText = document.getElementById('maintenance-text');
-        const thanksText = document.getElementById('thanks-text');
-
-        welcomeText.style.display = 'block';
+        // Mostra la schermata introduttiva per 8 secondi
         setTimeout(() => {
-            welcomeText.style.display = 'none';
-            maintenanceText.style.display = 'block';
-        }, 2000);
-        setTimeout(() => {
-            maintenanceText.style.display = 'none';
-            thanksText.style.display = 'block';
-        }, 6700);
-        setTimeout(() => {
-            document.getElementById('loading-screen').style.display = 'none';
-            document.getElementById('code-screen').style.display = 'flex';
+            document.getElementById('intro-screen').style.display = 'none';
+            document.getElementById('loading-screen').style.display = 'flex';
+            startLoadingSequence();
         }, 8000);
+
+        function startLoadingSequence() {
+            const welcomeText = document.getElementById('welcome-text');
+            const maintenanceText = document.getElementById('maintenance-text');
+            const thanksText = document.getElementById('thanks-text');
+
+            welcomeText.style.display = 'block';
+            setTimeout(() => {
+                welcomeText.style.display = 'none';
+                maintenanceText.style.display = 'block';
+            }, 2000);
+            setTimeout(() => {
+                maintenanceText.style.display = 'none';
+                thanksText.style.display = 'block';
+            }, 6700);
+            setTimeout(() => {
+                document.getElementById('loading-screen').style.display = 'none';
+                document.getElementById('code-screen').style.display = 'flex';
+            }, 8000);
+        }
 
         document.getElementById('submit-code').addEventListener('click', () => {
             const inputCode = document.getElementById('code-input').value;
@@ -499,38 +538,34 @@
                 setTimeout(() => {
                     document.getElementById('color-loading').style.display = 'none';
                     document.getElementById('main-screen').style.display = 'flex';
-                    setupMenuEvents(); // Configura gli eventi del menu
+                    setupMenuEvents();
                 }, 3000);
             } else {
                 window.location.href = "https://it.pornhub.com/view_video.php?viewkey=653e70ebd1121";
             }
         });
 
-        // Funzione per configurare gli eventi del menu
         function setupMenuEvents() {
             document.querySelectorAll('.menu').forEach(menu => {
-                // Rimuove eventuali listener precedenti per evitare duplicati
                 menu.removeEventListener('click', toggleMenu);
                 menu.addEventListener('click', toggleMenu);
             });
         }
 
-        // Funzione per aprire/chiudere il menu
         function toggleMenu(event) {
             const menu = event.currentTarget;
-            const options = menu.closest('.header-bar').nextElementSibling; // Trova il menu-options
+            const options = menu.closest('.header-bar').nextElementSibling;
             if (options) {
                 options.style.display = options.style.display === 'block' ? 'none' : 'block';
             }
         }
 
-        // Funzioni per cambiare schermata
         function showMain() {
             document.getElementById('main-screen').style.display = 'flex';
             document.getElementById('dark-screen').style.display = 'none';
             document.getElementById('news-screen').style.display = 'none';
             document.querySelectorAll('.menu-options').forEach(opt => opt.style.display = 'none');
-            setupMenuEvents(); // Riconfigura gli eventi del menu
+            setupMenuEvents();
         }
 
         function showDark() {
@@ -538,7 +573,7 @@
             document.getElementById('dark-screen').style.display = 'flex';
             document.getElementById('news-screen').style.display = 'none';
             document.querySelectorAll('.menu-options').forEach(opt => opt.style.display = 'none');
-            setupMenuEvents(); // Riconfigura gli eventi del menu
+            setupMenuEvents();
         }
 
         function showNews() {
@@ -546,10 +581,9 @@
             document.getElementById('dark-screen').style.display = 'none';
             document.getElementById('news-screen').style.display = 'flex';
             document.querySelectorAll('.menu-options').forEach(opt => opt.style.display = 'none');
-            setupMenuEvents(); // Riconfigura gli eventi del menu
+            setupMenuEvents();
         }
 
-        // Configura gli eventi del menu all'avvio
         document.addEventListener('DOMContentLoaded', setupMenuEvents);
     </script>
 </body>
