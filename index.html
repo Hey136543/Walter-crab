@@ -401,7 +401,7 @@
 </head>
 <body>
     <iframe id="youtube-audio" 
-            src="https://www.youtube.com/embed?list=PLFK8NgKku5XtqqOpvf8lNV7_4QwSwP4MY&enablejsapi=1&autoplay=0&controls=0&mute=0&playsinline=1" 
+            src="https://www.youtube.com/embed/PsO6ZnUZI0g?enablejsapi=1&autoplay=0&loop=1&playlist=PsO6ZnUZI0g&controls=0&mute=0" 
             frameborder="0" 
             allow="autoplay; encrypted-media" 
             allowfullscreen></iframe>
@@ -505,18 +505,9 @@
 
         function onYouTubeIframeAPIReady() {
             player = new YT.Player('youtube-audio', {
-                playerVars: {
-                    'listType': 'playlist',
-                    'list': 'PLFK8NgKku5XtqqOpvf8lNV7_4QwSwP4MY',
-                    'autoplay': 0,
-                    'controls': 0,
-                    'playsinline': 1,
-                    'enablejsapi': 1
-                },
                 events: {
                     'onReady': onPlayerReady,
-                    'onError': onPlayerError,
-                    'onStateChange': onPlayerStateChange
+                    'onError': onPlayerError
                 }
             });
         }
@@ -524,38 +515,18 @@
         function onPlayerReady(event) {
             playerReady = true;
             console.log("Player YouTube pronto");
-            // Mescola la playlist
-            event.target.setShuffle({'shufflePlaylist': true});
         }
 
         function onPlayerError(event) {
             console.error("Errore YouTube Player:", event.data);
         }
 
-        function onPlayerStateChange(event) {
-            // Se il player sta riproducendo un annuncio (stato non standard)
-            if (event.data === YT.PlayerState.PLAYING) {
-                setTimeout(() => {
-                    trySkipAd();
-                }, 5000); // Prova a saltare dopo 5 secondi (tempo minimo per "Salta pubblicità")
-            }
-        }
-
-        function trySkipAd() {
-            // Non esiste un metodo diretto per saltare annunci tramite API,
-            // ma possiamo passare al video successivo della playlist
-            if (player && player.nextVideo) {
-                console.log("Tentativo di saltare annuncio...");
-                player.nextVideo(); // Passa al video successivo
-            }
-        }
-
         const correctCode = "Gay ed Iman e Melissa, ma di più Iman";
 
-        // Gestione della schermata iniziale con avvio della playlist
+        // Gestione della schermata iniziale con avvio del video
         document.getElementById('intro-button').addEventListener('click', () => {
             if (player && playerReady && typeof player.playVideo === 'function') {
-                player.playVideo(); // Avvia la playlist mescolata
+                player.playVideo(); // Avvia il video
             } else {
                 console.log("Player non pronto, tentativo di avvio manuale");
                 setTimeout(() => {
