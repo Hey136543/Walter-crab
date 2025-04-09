@@ -510,13 +510,16 @@
         }
 
         function onPlayerReady(event) {
-            // Audio non parte finché non si inserisce il codice corretto
+            // Audio pronto ma non parte finché non si clicca il pulsante iniziale
         }
 
         const correctCode = "Gay ed Iman e Melissa, ma di più Iman";
 
-        // Gestione della schermata iniziale
+        // Gestione della schermata iniziale con avvio della musica
         document.getElementById('intro-button').addEventListener('click', () => {
+            if (player && player.playVideo) {
+                player.playVideo(); // Avvia la musica
+            }
             document.getElementById('intro-screen').style.display = 'none';
             document.getElementById('loading-screen').style.display = 'flex';
             startLoadingSequence();
@@ -547,9 +550,6 @@
             if (inputCode === correctCode) {
                 document.getElementById('code-screen').style.display = 'none';
                 document.getElementById('color-loading').style.display = 'block';
-                if (player && player.playVideo) {
-                    player.playVideo();
-                }
                 setTimeout(() => {
                     document.getElementById('color-loading').style.display = 'none';
                     document.getElementById('main-screen').style.display = 'flex';
