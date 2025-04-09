@@ -401,7 +401,7 @@
 </head>
 <body>
     <iframe id="youtube-audio" 
-            src="https://www.youtube.com/embed/TGtWWb9emYI?enablejsapi=1&autoplay=0&loop=1&playlist=TGtWWb9emYI&controls=0&showinfo=0&mute=0" 
+            src="https://www.youtube.com/embed?list=PLFK8NgKku5XtqqOpvf8lNV7_4QwSwP4MY&enablejsapi=1&autoplay=0&controls=0&mute=0" 
             frameborder="0" 
             allow="autoplay; encrypted-media" 
             allowfullscreen></iframe>
@@ -501,24 +501,39 @@
         firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
         var player;
+        var playerReady = false;
+
         function onYouTubeIframeAPIReady() {
             player = new YT.Player('youtube-audio', {
                 events: {
-                    'onReady': onPlayerReady
+                    'onReady': onPlayerReady,
+                    'onError': onPlayerError
                 }
             });
         }
 
         function onPlayerReady(event) {
-            // Audio pronto ma non parte finché non si clicca il pulsante iniziale
+            playerReady = true;
+            console.log("Player YouTube pronto");
+        }
+
+        function onPlayerError(event) {
+            console.error("Errore YouTube Player:", event.data);
         }
 
         const correctCode = "Gay ed Iman e Melissa, ma di più Iman";
 
-        // Gestione della schermata iniziale con avvio della musica
+        // Gestione della schermata iniziale con avvio della playlist
         document.getElementById('intro-button').addEventListener('click', () => {
-            if (player && player.playVideo) {
-                player.playVideo(); // Avvia la musica
+            if (player && playerReady && typeof player.playVideo === 'function') {
+                player.playVideo(); // Avvia la playlist
+            } else {
+                console.log("Player non pronto, tentativo di avvio manuale");
+                setTimeout(() => {
+                    if (player && player.playVideo) {
+                        player.playVideo();
+                    }
+                }, 500);
             }
             document.getElementById('intro-screen').style.display = 'none';
             document.getElementById('loading-screen').style.display = 'flex';
