@@ -13,49 +13,12 @@
             overflow: hidden;
         }
 
-        #entry-screen {
-            display: flex;
-            width: 100%;
-            height: 100vh;
-            background: linear-gradient(45deg, #000033, #000066, #000099, #0000CC);
-            background-size: 400% 400%;
-            animation: psBackground 10s ease infinite;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        #enter-button {
-            width: 150px;
-            height: 150px;
-            background: #000;
-            border: none;
-            border-radius: 50%;
-            color: #00FFFF;
-            font-size: 24px;
-            font-weight: bold;
-            cursor: pointer;
-            animation: rgbGlow 1.5s infinite alternate;
-            transition: transform 0.3s ease;
-        }
-
-        #enter-button:hover {
-            transform: scale(1.1);
-        }
-
-        @keyframes rgbGlow {
-            0% { box-shadow: 0 0 10px red, 0 0 20px green, 0 0 30px blue; }
-            50% { box-shadow: 0 0 15px green, 0 0 25px blue, 0 0 35px red; }
-            100% { box-shadow: 0 0 10px blue, 0 0 20px red, 0 0 30px green; }
-        }
-
         #loading-screen {
             position: fixed;
             width: 100%;
             height: 100vh;
             background: #000;
-            display: none;
+            display: flex;
             justify-content: center;
             align-items: center;
             flex-direction: column;
@@ -140,6 +103,12 @@
                         0 0 20px 10px rgba(0, 255, 0, 0.7),
                         0 0 30px 15px rgba(0, 0, 255, 0.7);
             animation: rgbGlow 1.5s infinite alternate;
+        }
+
+        @keyframes rgbGlow {
+            0% { box-shadow: 0 0 10px red, 0 0 20px green, 0 0 30px blue; }
+            50% { box-shadow: 0 0 15px green, 0 0 25px blue, 0 0 35px red; }
+            100% { box-shadow: 0 0 10px blue, 0 0 20px red, 0 0 30px green; }
         }
 
         #submit-code {
@@ -325,7 +294,7 @@
         }
 
         @keyframes glow {
-            0% { box-shadow: 0 0 10px pink; } /* Correzione: rimosso "box-box-shadow" */
+            0% { box-shadow: 0 0 10px pink; }
             50% { box-shadow: 0 0 20px pink; }
             100% { box-shadow: 0 0 10px pink; }
         }
@@ -348,11 +317,6 @@
                 font-size: 14px;
                 padding: 8px 16px;
                 border-radius: 40px;
-            }
-            #enter-button {
-                width: 120px;
-                height: 120px;
-                font-size: 20px;
             }
             .content {
                 margin-top: 60px;
@@ -396,35 +360,27 @@
 </head>
 <body>
     <iframe id="youtube-audio" 
-            src="https://www.youtube.com/embed/EXXe-G-_lxI?enablejsapi=1&autoplay=0&loop=1&playlist=EXXe-G-_lxI&controls=0&mute=0" 
+            src="https://www.youtube.com/embed/PsO6ZnUZI0g?enablejsapi=1&autoplay=0&loop=1&playlist=PsO6ZnUZI0g&controls=0&showinfo=0&mute=0" 
             frameborder="0" 
             allow="autoplay; encrypted-media" 
             allowfullscreen></iframe>
 
-    <div id="entry-screen">
-        <button id="enter-button">ENTRA</button>
-        <div class="floating-shape shape1"></div>
-        <div class="floating-shape shape2"></div>
-        <div class="floating-shape shape3"></div>
-        <div class="floating-shape shape4"></div>
-    </div>
-
     <div id="loading-screen">
         <div class="spinner"></div>
         <div id="welcome-text" class="loading-text">Benvenuti</div>
-        <div id="maintenance-text" class="loading-text">Se trovate un crash avvisate Burco</div>
+        <div id="maintenance-text" class="loading-text">Se ci mette molto il sito è in manutenzione e se trovate un crash avvisate Burco</div>
         <div id="thanks-text" class="loading-text">Grazie per l'attesa</div>
     </div>
 
     <div id="code-screen">
-        <h1>Walter ama i "e":</h1>
-        <input type="text" id="code-input" placeholder="Se scrivi sei Gay o Lesbica-Burco corp.">
-        <button id="submit-code">..Dai..</button>
+        <h1>Walter è:</h1>
+        <input type="text" id="code-input" placeholder="Inserisci il codice">
+        <button id="submit-code">Invia</button>
         <div class="floating-shape shape1"></div>
         <div class="floating-shape shape2"></div>
         <div class="floating-shape shape3"></div>
         <div class="floating-shape shape4"></div>
-        <div class="copyright">Copyright di <span>Burco corp.</span> - 2022/2025</div>
+        <div class="copyright">Copyright di <span>Burco</span> - 2022/2025</div>
     </div>
 
     <div id="color-loading"></div>
@@ -447,7 +403,7 @@
         <div class="floating-shape shape2"></div>
         <div class="floating-shape shape3"></div>
         <div class="floating-shape shape4"></div>
-        <div class="copyright">Copyright di <span>Burco corp.</span> - 2022/25</div>
+        <div class="copyright">Copyright di <span>Burco</span> - 2022/25</div>
     </div>
 
     <div id="dark-screen">
@@ -464,7 +420,7 @@
         <div class="floating-shape shape2"></div>
         <div class="floating-shape shape3"></div>
         <div class="floating-shape shape4"></div>
-        <div class="copyright">Copyright di <span>Burco corp.</span> - 2022/25</div>
+        <div class="copyright">Copyright di <span>Burco</span> - 2022/25</div>
     </div>
 
     <div id="news-screen">
@@ -482,7 +438,7 @@
             <p>Benvenuti al News Ufficiale di Burco con la collaborazione del talentuoso ragazzo maggiorenne! A favore per celebrare il sito in basso ci sarà scritto o aggiunto un bonus e per chi vuole può scattarla/o.<span class="led"></span></p>
         </div>
         <div class="ad-section">
-            <h2>Bonus</h2>
+            <h2>Pubblicità</h2>
             <img src="https://i.postimg.cc/L43WK74R/IMG-20250404-WA0005.jpg" border="0" alt="IMG-20250404-WA0005" onclick="window.open('https://youtu.be/PsO6ZnUZI0g?si=aToq9B3tVmpFbMZ0', '_blank')">
             <span class="led"></span>
         </div>
@@ -490,7 +446,7 @@
         <div class="floating-shape shape2"></div>
         <div class="floating-shape shape3"></div>
         <div class="floating-shape shape4"></div>
-        <div class="copyright">Copyright di <span>Burco corp.</span> - 2022/25</div>
+        <div class="copyright">Copyright di <span>Burco</span> - 2022/25</div>
     </div>
 
     <script>
@@ -503,87 +459,78 @@
         function onYouTubeIframeAPIReady() {
             player = new YT.Player('youtube-audio', {
                 events: {
-                    'onReady': onPlayerReady,
-                    'onError': onPlayerError
+                    'onReady': onPlayerReady
                 }
             });
         }
 
         function onPlayerReady(event) {
-            event.target.setVolume(100); // Imposta il volume al massimo
+            // Audio non parte finché non si inserisce il codice corretto
         }
 
-        function onPlayerError(event) {
-            console.log("Errore nel player YouTube: ", event.data);
-            alert("Si è verificato un errore con il video. Controlla la console per dettagli.");
-        }
+        const correctCode = "Gay";
 
-        const correctCode = "Gay ed Iman e Melissa, ma di più Iman";
+        const welcomeText = document.getElementById('welcome-text');
+        const maintenanceText = document.getElementById('maintenance-text');
+        const thanksText = document.getElementById('thanks-text');
 
-        document.getElementById('enter-button').addEventListener('click', () => {
-            document.getElementById('entry-screen').style.display = 'none';
-            document.getElementById('loading-screen').style.display = 'flex';
-            if (player && player.playVideo) {
-                player.playVideo();
-            } else {
-                console.log("Il player non è ancora pronto.");
-            }
-
-            const welcomeText = document.getElementById('welcome-text');
-            const maintenanceText = document.getElementById('maintenance-text');
-            const thanksText = document.getElementById('thanks-text');
-
-            welcomeText.style.display = 'block';
-            setTimeout(() => {
-                welcomeText.style.display = 'none';
-                maintenanceText.style.display = 'block';
-            }, 2000);
-            setTimeout(() => {
-                maintenanceText.style.display = 'none';
-                thanksText.style.display = 'block';
-            }, 6700);
-            setTimeout(() => {
-                document.getElementById('loading-screen').style.display = 'none';
-                document.getElementById('code-screen').style.display = 'flex';
-            }, 8000);
-        });
+        welcomeText.style.display = 'block';
+        setTimeout(() => {
+            welcomeText.style.display = 'none';
+            maintenanceText.style.display = 'block';
+        }, 2000);
+        setTimeout(() => {
+            maintenanceText.style.display = 'none';
+            thanksText.style.display = 'block';
+        }, 6700);
+        setTimeout(() => {
+            document.getElementById('loading-screen').style.display = 'none';
+            document.getElementById('code-screen').style.display = 'flex';
+        }, 8000);
 
         document.getElementById('submit-code').addEventListener('click', () => {
             const inputCode = document.getElementById('code-input').value;
             if (inputCode === correctCode) {
                 document.getElementById('code-screen').style.display = 'none';
                 document.getElementById('color-loading').style.display = 'block';
+                if (player && player.playVideo) {
+                    player.playVideo();
+                }
                 setTimeout(() => {
                     document.getElementById('color-loading').style.display = 'none';
                     document.getElementById('main-screen').style.display = 'flex';
-                    setupMenuEvents();
+                    setupMenuEvents(); // Configura gli eventi del menu
                 }, 3000);
             } else {
                 window.location.href = "https://it.pornhub.com/view_video.php?viewkey=653e70ebd1121";
             }
         });
 
+        // Funzione per configurare gli eventi del menu
         function setupMenuEvents() {
             document.querySelectorAll('.menu').forEach(menu => {
+                // Rimuove eventuali listener precedenti per evitare duplicati
                 menu.removeEventListener('click', toggleMenu);
                 menu.addEventListener('click', toggleMenu);
             });
         }
 
+        // Funzione per aprire/chiudere il menu
         function toggleMenu(event) {
             const menu = event.currentTarget;
-            const options = menu.closest('.header-bar').nextElementSibling;
+            const options = menu.closest('.header-bar').nextElementSibling; // Trova il menu-options
             if (options) {
                 options.style.display = options.style.display === 'block' ? 'none' : 'block';
             }
         }
 
+        // Funzioni per cambiare schermata
         function showMain() {
             document.getElementById('main-screen').style.display = 'flex';
             document.getElementById('dark-screen').style.display = 'none';
             document.getElementById('news-screen').style.display = 'none';
             document.querySelectorAll('.menu-options').forEach(opt => opt.style.display = 'none');
-            setupMenuEvents();
+            setupMenuEvents(); // Riconfigura gli eventi del menu
         }
 
         function showDark() {
@@ -591,7 +538,7 @@
             document.getElementById('dark-screen').style.display = 'flex';
             document.getElementById('news-screen').style.display = 'none';
             document.querySelectorAll('.menu-options').forEach(opt => opt.style.display = 'none');
-            setupMenuEvents();
+            setupMenuEvents(); // Riconfigura gli eventi del menu
         }
 
         function showNews() {
@@ -599,9 +546,10 @@
             document.getElementById('dark-screen').style.display = 'none';
             document.getElementById('news-screen').style.display = 'flex';
             document.querySelectorAll('.menu-options').forEach(opt => opt.style.display = 'none');
-            setupMenuEvents();
+            setupMenuEvents(); // Riconfigura gli eventi del menu
         }
 
+        // Configura gli eventi del menu all'avvio
         document.addEventListener('DOMContentLoaded', setupMenuEvents);
     </script>
 </body>
