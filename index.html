@@ -325,7 +325,7 @@
         }
 
         @keyframes glow {
-            0% { box-shadow: 0 0 10px pink; } /* Correzione: rimosso "box-box-shadow" */
+            0% { box-shadow: 0 0 10px pink; }
             50% { box-shadow: 0 0 20px pink; }
             100% { box-shadow: 0 0 10px pink; }
         }
@@ -396,7 +396,7 @@
 </head>
 <body>
     <iframe id="youtube-audio" 
-            src="https://www.youtube.com/embed/mcYLzu_1cNc?enablejsapi=1&autoplay=0&loop=1&playlist=mcYLzu_1cNc&controls=0&showinfo=0&mute=0" 
+            src="https://www.youtube.com/embed/mcYLzu_1cNc?enablejsapi=1&autoplay=0&loop=1&playlist=mcYLzu_1cNc&controls=0&mute=0" 
             frameborder="0" 
             allow="autoplay; encrypted-media" 
             allowfullscreen></iframe>
@@ -503,13 +503,19 @@
         function onYouTubeIframeAPIReady() {
             player = new YT.Player('youtube-audio', {
                 events: {
-                    'onReady': onPlayerReady
+                    'onReady': onPlayerReady,
+                    'onError': onPlayerError
                 }
             });
         }
 
         function onPlayerReady(event) {
-            // Audio non parte finché non si preme "ENTRA"
+            event.target.setVolume(100); // Imposta il volume al massimo
+        }
+
+        function onPlayerError(event) {
+            console.log("Errore nel player YouTube: ", event.data);
+            alert("Si è verificato un errore con il video. Controlla la console per dettagli.");
         }
 
         const correctCode = "Gay ed Iman e Melissa, ma di più Iman";
@@ -519,6 +525,8 @@
             document.getElementById('loading-screen').style.display = 'flex';
             if (player && player.playVideo) {
                 player.playVideo();
+            } else {
+                console.log("Il player non è ancora pronto.");
             }
 
             const welcomeText = document.getElementById('welcome-text');
